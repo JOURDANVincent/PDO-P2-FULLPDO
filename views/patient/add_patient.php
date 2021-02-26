@@ -15,7 +15,7 @@
 
         <!------------------------------------------ nouveau patient ------------------------------------------------>
 
-        <form action="" method="POST">
+        <form action="/patient/add_patient" method="POST">
 
             <fieldset class="mb-2">
 
@@ -78,7 +78,7 @@
 
             <!------------------------------------------ submit ------------------------------------------------>
             <div class="text-center my-4">
-                <input type="hidden" name="ctrl" value="1">
+                <!-- <input type="hidden" name="ctrl" value="1"> -->
                 <input class="btn bg1 bdc1 px-5" type="submit" value="ajouter">
             </div>  
 

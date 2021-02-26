@@ -29,5 +29,22 @@ class Model {
         return $this->_pdo; // retourne la connexion
     }
 
+    
+    public function get_total() {
 
+        try{  //On essaie de se connecter
+
+            // Préparation de la requête 
+            $sql = "SELECT COUNT(`id`) FROM `patients` ";
+            $sth = $this->_pdo->query($sql);
+
+            // envoi le nombre de patient enregistré
+            return $sth->fetchColumn();
+            
+        } catch(PDOException $e){  // sinon on capture les exceptions si une exception est lancée et on affiche les informations relatives à celle-ci*/
+            
+            return false;
+        }
+        
+    }
 }

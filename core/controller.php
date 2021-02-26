@@ -39,30 +39,29 @@ class Controller {
         $this->$modelname = new $modelname();
     }
 
-
-    // function get_total() {
-
-    //     $this->total = Model->model->get_total();
-    // }
-
-    function paging($offset, $limit, $total) {
+    function paging() {
 
         // traitement de limit pour gérer l'affichage
-        if ($limit <= 10) {
-            $limit = 10;
+        if ($this->limit <= 10) {
+            $this->limit = 10;
         } else {
-            $limit = 10;
+            $this->limit = 10;
         }
 
         // traitement de offset pour gérer l'affichage
-        if($offset <= 0) {
-            $offset = 0;
-        } else if ($offset >= $total) {
-            $offset = $offset - $limit;
+        if($this->offset <= 0) {
+            $this->offset = 0;
+        } else if ($this->offset >= $this->total) {
+            $this->offset = $this->offset - $this->limit;
         } 
 
-        $this->offset = $this->global_data['offset'] = $offset;
-        $this->limit = $this->global_data['limit'] = $limit;
+    }
+
+    function check_input($offset, $limit, $search){
+
+        $this->limit = intval(trim(filter_var($limit, FILTER_SANITIZE_NUMBER_INT)));
+        $this->offset = intval(trim(filter_var($offset, FILTER_SANITIZE_NUMBER_INT)));
+        $this->search = trim(filter_var($search, FILTER_SANITIZE_STRING));
     }
 
 }

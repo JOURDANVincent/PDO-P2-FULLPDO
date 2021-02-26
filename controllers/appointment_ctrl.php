@@ -3,7 +3,7 @@
 class Appointment extends Controller {
 
 
-    private $apapa_data = array();
+    private $layout_data = array();
 
 
     public function __construct(){
@@ -12,10 +12,19 @@ class Appointment extends Controller {
     }
 
 
-    function index(){
+    function index($offset = 0, $limit = 10, $search = null){
+
+        // nettoyage des paramètres recu
+        $this->check_input($offset, $limit, $search);
 
         // envoi des données du tableau $array dans la vue
-        $this->set($this->layout_data);
+        $this->total = $this->Appointments->get_total();
+
+        // fonction pagination
+        $this->paging();
+
+        // demande de liste patient
+        $this->appointments_list = $this->Appointments->get_list($this->offset, $this->limit);
 
         // renvoi la vue index
         $this->render('aptmts_list');

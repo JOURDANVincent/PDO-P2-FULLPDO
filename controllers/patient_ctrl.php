@@ -14,25 +14,22 @@ class Patient extends Controller {
 
     function index($offset = 0, $limit = 10, $search = null){
 
-        // récupère le nombre total de patient
-        //$this->layout_data['total'] = $this->Patients->get_total();
-        $this->total = $this->layout_data['total'] = $this->Patients->get_total();
+        // nettoyage des paramètres recu
+        $this->check_input($offset, $limit, $search);
 
-        $this->layout_data['search'] = $search;
+        // récupère le nombre total de patient
+        $this->total = $this->Patients->get_total();
 
         // fonction pagination
-        $this->paging($offset, $limit, $this->total);
-
+        $this->paging();
 
         // demande de liste patient
-        $this->layout_data['patients_list'] = $this->Patients->get_list($this->offset, $this->limit);
-
-        // envoi des données du tableau $array dans la vue
-        $this->set($this->layout_data);
+        $this->patients_list = $this->Patients->get_list($this->offset, $this->limit);
 
         // renvoi la vue index
         $this->render('patients_list');
     }
+
 
     function add_patient(){
 

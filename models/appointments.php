@@ -5,16 +5,15 @@ class Appointments extends Model {
     private $_id;
     private $_dateHour;
     private $_idPatients;
-    private $_pdo;
     private $_last_insert_id;
     
 
-    public function __construct($dateHour, $idPatients, $id=0) {
+    public function __construct($dateHour=null, $idPatients=null, $id=null) {
 
         $this->_dateHour = $dateHour;
         $this->_idPatients = $idPatients;
         $this->_id = $id;
-        $this->_pdo = Database::connect();
+        $this->_pdo = $this->connect();
     }
     
     public function set_id($id) {
@@ -63,11 +62,9 @@ class Appointments extends Model {
         return $this->_last_insert_id;
     }
 
-    public static function get_appointments_list($offset = 0, $limit = 10) {
+    public function get_list($offset = 0, $limit = 10) {
         
         try{  //On essaie de se connecter
-
-            $pdo = Database::connect();
 
             // demande liste des patients
             $sql = "SELECT 
@@ -82,7 +79,7 @@ class Appointments extends Model {
                         :sql_offset, :sql_limit;";
     
             // déclare une variable qui recoit la réponse
-            $sth = $pdo->prepare($sql);
+            $sth = $this->_pdo->prepare($sql);
 
             // association des marqueurs nominatif via méthode bindvalue
             $sth->bindValue(':sql_offset', $offset, PDO::PARAM_INT);
@@ -174,15 +171,14 @@ class Appointments extends Model {
         }
     }
 
-    public static function get_total_appointments() {
+    public function get_total() {
 
         try{  //On essaie de se connecter
 
-            $pdo = Database::connect();
-
             // Préparation de la requête 
             $sql = "SELECT COUNT(`id`) FROM `appointments`;";
-            $sth = $pdo->query($sql);
+            
+            $sth = $this->_pdo->query($sql);
 
             // envoi le nombre de rendez-vous enregistrés
             return $sth->fetchColumn();

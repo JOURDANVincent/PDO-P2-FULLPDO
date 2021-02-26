@@ -31,7 +31,10 @@
             </thead>
 
             <tbody>
-                <?php foreach($appointments_list as $appointment) :
+                <?php 
+                    $a = !empty($this->offset) ? ($this->offset + 1) : 1 ; 
+                    
+                    foreach($this->appointments_list as $appointment) :
 
                     // on déclare une variable $date et une $hour
                     $date = date('d/m/Y', strtotime($appointment->dateHour));
@@ -39,7 +42,7 @@
                     
                     <tr>
                         <td onclick="location.href='index.php?ctrl=7&idP=<?= $appointment->idPatients ?>&idA=<?= $appointment->idAppointments ?>'">
-                            <img src="assets/icon/setPatientProfil.svg" style="max-height:20px;" alt="icone modifier">
+                            <img src="/assets/icon/setPatientProfil.svg" style="max-height:20px;" alt="icone modifier">
                         </td>
                         <td><?= $a ?></td>
                         <td><?= $date ?></td>
@@ -52,7 +55,7 @@
                             <!-- <button data-id="<?= $appointment->idAppointments ?>" class="delAppointmentBtn" type="button" data-toggle="modal" data-target="#delAppointmentModal"> -->
                         <td data-id="<?= $appointment->idAppointments ?>" class="delAppointmentBtn">
                         <!-- <td onclick="location.href='index.php?ctrl=6&del_idA=<?= $appointment->idAppointments ?>'"> -->
-                            <img src="assets/icon/delete.svg" style="max-height:20px;" alt="icone supprimer">
+                            <img src="/assets/icon/delete.svg" style="max-height:20px;" alt="icone supprimer">
                             <!-- </button> -->
                         </td>
                         
@@ -64,13 +67,13 @@
         </table>
 
         <div class="text-center mb-3 txt1">
-            <?php if (($sql_offset - 10) >= 0) : ?>
-                <a href="index.php?ctrl=6&limit=10&offset=<?= ($sql_offset - 10) ?>"><span class="mx-2">précédent</span></a>
+            <?php if (($this->offset - 10) >= 0) : ?>
+                <a href="/appointment/aptmts_list/<?= ($this->offset - 10) ?>/10"><span class="mx-2">précédent</span></a>
             <?php endif ?>
-            <?php if (($sql_offset + 10) < $total_appointments) : ?>
-                <a href="index.php?ctrl=6&limit=10&offset=<?= ($sql_offset + 10) ?>"><span class="mx-2">suivant</span></a>
+            <?php if (($this->offset + 10) < $this->total) : ?>
+                <a href="/appointment/aptmts_list/<?= ($this->offset + 10) ?>/10"><span class="mx-2">suivant</span></a>
             <?php endif ?>
-                <span class="mx-2"><?= $total_appointments.' rendez-vous' ?></span>
+                <span class="mx-2"><?= $this->total.' rendez-vous' ?></span>
         </div>
 
     </div>

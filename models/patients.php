@@ -10,7 +10,6 @@ class Patients extends Model {
     private $_phone;
     private $_mail;
     private $_last_insert_id;
-    static $total_patient;
 
 
     public function __construct($lastname=null, $firstname=null, $birthdate=null, $phone=null, $mail=null, $id=null) {
