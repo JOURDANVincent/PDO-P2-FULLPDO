@@ -2,20 +2,18 @@
 
 class Appointment extends Controller {
 
-
+    use Validator;
     private $layout_data = array();
 
 
     public function __construct(){
 
+        $this->sanitize_get_input(); // nettoyage des paramètres recu
         $this->load_model('Appointments'); // chargement du model 
     }
 
 
-    function index($offset = 0, $limit = 10, $search = null){
-
-        // nettoyage des paramètres recu
-        $this->check_input($offset, $limit, $search);
+    function index(){
 
         // envoi des données du tableau $array dans la vue
         $this->total = $this->Appointments->get_total();
@@ -32,8 +30,17 @@ class Appointment extends Controller {
 
     function add_aptmt(){
 
-        // envoi des données du tableau $array dans la vue
-        $this->set($this->layout_data);
+        // charge model Patients
+        $this->load_model('Patients');
+
+        // demande de liste patient
+        $limit = $this->Patients->get_total();
+
+        // demande de liste patient
+        $this->patients_list = $this->Patients->get_list(0,$limit);
+
+        // récuper date et heur actuelle
+        $this->actual_date = implode('T',explode(' ', date('Y-m-d H:i')));
 
         // renvoi la vue index
         $this->render('add_aptmt');

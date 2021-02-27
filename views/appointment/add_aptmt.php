@@ -23,7 +23,7 @@
                 <label class="txt1 mb-3">Sélectionner du patient</label>
                 <div id="patientSelect" class="form-check mb-4 bg8 bdc1 pl-4 py-3">
 
-                    <?php foreach($patients_list as $patient) : ?>
+                    <?php foreach($this->patients_list as $patient) : ?>
                         <div class="d-flex">
                             <input 
                                 class="form-check-input" 
@@ -46,11 +46,11 @@
                 <input 
                     class="form-control <?= !empty($alert_msg) ? 'bgError' : '' ?> mb-2 col-12 col-lg-6" 
                     type="datetime-local" 
-                    min="<?= $actual_date ?>" 
+                    min="<?= $this->actual_date ?>" 
                     max=""
                     name="dateHour" 
                     placeholder="date et heure" 
-                    value="<?= $dateHour ?? $actual_date ;?>"
+                    value="<?= $dateHour ?? $this->actual_date ;?>"
                     required 
                 >
                 <div class="regexAlert mb-2 mt-0 pl-3"><?= $form_error['dateHour'] ?? '' ;?></div>

@@ -68,10 +68,10 @@
 
         <div class="text-center mb-3 txt1">
             <?php if (($this->offset - 10) >= 0) : ?>
-                <a href="/appointment/aptmts_list/<?= ($this->offset - 10) ?>/10"><span class="mx-2">précédent</span></a>
+                <a href="/appointment/aptmts_list/offset=<?= ($this->offset - 10) ?>/limit=10"><span class="mx-2">précédent</span></a>
             <?php endif ?>
             <?php if (($this->offset + 10) < $this->total) : ?>
-                <a href="/appointment/aptmts_list/<?= ($this->offset + 10) ?>/10"><span class="mx-2">suivant</span></a>
+                <a href="/appointment/aptmts_list/offset=<?= ($this->offset + 10) ?>/limit=10"><span class="mx-2">suivant</span></a>
             <?php endif ?>
                 <span class="mx-2"><?= $this->total.' rendez-vous' ?></span>
         </div>

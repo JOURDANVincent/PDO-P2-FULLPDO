@@ -15,70 +15,71 @@
 
         <!------------------------------------------ nouveau patient ------------------------------------------------>
 
-        <form action="/patient/add_patient" method="POST">
+        <form action="" method="POST">
 
             <fieldset class="mb-2">
 
                 <h1 class="py-3 text-center txtW">Nouveau patient</h1>
 
                 <input 
-                    class="form-control <?= (!empty($form_error['lastname'])) ? 'bgError' : '' ;?> mb-2" 
+                    class="form-control <?= (!empty($this->form_check['lastname'])) ? 'bgError' : '' ;?> mb-2" 
                     type="text" 
                     name="lastname" 
                     placeholder="nom" 
-                    value="<?= $lastname ?? '' ;?>"
+                    value="<?= $this->lastname ?? '' ;?>"
                     pattern ="^[a-zA-Z\-][^0-9]{2,}$" 
                     title="2 lettres mini / aucun chiffre ou caractères spéciaux"
                 >
-                <div class="txt1 mb-2 mt-0 pl-3"><?= $form_error['lastname'] ?? '' ;?></div>
+                <div class="txt1 mb-2 mt-0 pl-3"><?= $this->form_check['lastname'] ?? '' ;?></div>
 
                 <input 
-                    class="form-control <?= (!empty($form_error['firstname'])) ? 'bgError' : '' ;?> mb-2" 
+                    class="form-control <?= (!empty($this->form_check['firstname'])) ? 'bgError' : '' ;?> mb-2" 
                     type="text" 
                     name="firstname" 
                     placeholder="prénom" 
-                    value="<?= $_POST['firstname'] ?? '' ;?>"
+                    value="<?= $this->firstname ?? '' ;?>"
                     required pattern ="^[a-zA-Z\-][^0-9]{2,}$" title="2 lettres mini / aucun chiffre ou caractères spéciaux"
                 >
-                <div class="txt1 mb-2 mt-0 pl-3"><?= $form_error['firstname'] ?? '' ;?></div>
+                <div class="txt1 mb-2 mt-0 pl-3"><?= $this->form_check['firstname'] ?? '' ;?></div>
 
                 <input 
-                    class="form-control col-4 <?= (!empty($form_error['birthdaybirthdate'])) ? 'bgError' : '' ;?> mb-2" 
+                    class="form-control col-4 <?= (!empty($this->form_check['birthdaybirthdate'])) ? 'bgError' : '' ;?> mb-2" 
                     type="date" 
                     name="birthdate" 
                     placeholder="jj-mm-aaaa" 
-                    value="<?= $_POST['birthdate'] ?? '' ;?>"
+                    value="<?= $this->birthdate ?? '' ;?>"
                     required  
                     title="format jj-mm-aaaa (ex: 20/12/1983)"
                 > 
 
-                <div class="txt1 col-4 mb-2 mt-0"><?= $form_error['birthdate'] ?? '' ;?></div>
+                <div class="txt1 col-4 mb-2 mt-0"><?= $this->form_check['birthdate'] ?? '' ;?></div>
 
-                <input class="form-control <?= (!empty($form_error['phone'])) ? 'bgError' : '' ;?> mb-2" 
+                <input class="form-control <?= (!empty($this->form_check['phone'])) ? 'bgError' : '' ;?> mb-2" 
                     type="phone" 
                     name="phone" 
                     placeholder="téléphone" 
-                    value="<?= $_POST['phone'] ?? '' ;?>"
+                    value="<?= $this->phone ?? '' ;?>"
                     pattern="^(0|\+33)[1-9]( *[0-9]{2}){4}$" 
                     title="ex: 06-12-34-56-78"
                 >
-                <div class="txt1 mb-2 mt-0 pl-3"><?= $form_error['phone'] ?? '' ;?></div>
+                <div class="txt1 mb-2 mt-0 pl-3"><?= $this->form_check['phone'] ?? '' ;?></div>
 
                 <input 
                     class="form-control <?= !empty($alert_msg) ? 'bgError' : '' ;?> mb-2" 
                     type="email" name="mail" 
                     placeholder="email" 
-                    value="<?= $_POST['mail'] ?? '' ;?>"
+                    value="<?= $this->mail ?? '' ;?>"
                     required pattern="^[\w-\.]+@([\w-]+\.)+\.[\w-]{2,5}$" 
                     title="ex: contact@moi.fr"
                 >
-                <div class="txt1 mb-2 mt-0 pl-3"><?= $form_error['mail'] ?? '' ;?></div>
+                <div class="txt1 mb-2 mt-0 pl-3"><?= $this->form_check['mail'] ?? '' ;?></div>
 
             </fieldset>  
 
             <!------------------------------------------ submit ------------------------------------------------>
             <div class="text-center my-4">
-                <!-- <input type="hidden" name="ctrl" value="1"> -->
+                <input type="hidden" name="ctrl" value="patient">
+                <input type="hidden" name="action" value="add_patient_check">
                 <input class="btn bg1 bdc1 px-5" type="submit" value="ajouter">
             </div>  
 

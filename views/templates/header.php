@@ -56,9 +56,8 @@
                         
                         <ul class="navbar-nav">
 
-                            <li class="nav-item"><a class="nav-link mx-2" href="/patient/add_patient">
-                                Ajouter patient
-                            </a></li>
+                            <li class="nav-item"><a class="nav-link mx-2" href="/patient/add_patient_view">
+                                <img src="/assets/icon/" alt=""> Ajouter patient</a></li>
                             <li class="nav-item"><a class="nav-link mx-2" href="/patient/patients_list">
                                 <img src="/assets/icon/" alt=""> Liste des patients</a></li>
                             <li class="nav-item"><a class="nav-link mx-2" href="/appointment/add_aptmt">

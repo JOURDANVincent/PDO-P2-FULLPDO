@@ -10,27 +10,29 @@
     // appel du controller et du modèle principale
     require_once ROOT.'core/model.php';
     require_once ROOT.'core/controller.php';
+    require_once ROOT.'core/validator_trait.php';
 
+
+    //var_dump($_POST);
 
     try {
 
-        // découpe tableau $_GET, injection dans $params
-        $params = explode('/', $_GET['params']);
-
-        if (!empty($params[0])) {
+        if (!empty($_GET['ctrl']) || !empty($_POST['ctrl'])) {
 
             // traitement controller
-            $controller = strtolower(trim(filter_var($params[0]), FILTER_SANITIZE_STRING));
+            $controller = ucfirst(trim(filter_input($request_method,'ctrl', FILTER_SANITIZE_STRING)));
 
         } else {
             // attribution nom de controller par défaut
-            $controller = $params[0] = 'home';
+            $controller = 'home';
         }
 
-        if(is_file(ROOT.'controllers/'.$controller.'_ctrl.php')) { 
+        echo $controller;
+
+        if(is_file(ROOT.'controllers/'.strtolower($controller).'_ctrl.php')) { 
 
             // appel du controller
-            require ROOT.'controllers/'.$controller.'_ctrl.php';
+            require ROOT.'controllers/'.strtolower($controller).'_ctrl.php';
 
         } else {
             // appel controlleur par défaut
@@ -47,27 +49,24 @@
             $controller = new Home();
         }
 
-        if (!empty($params[1])) {
+        if (!empty($_GET['action']) || !empty($_POST['action'])) {
 
             // traitement de la méthode
-            $action = strtolower(trim(filter_var($params[1]), FILTER_SANITIZE_STRING));
+            $action = strtolower(trim(filter_input($request_method, 'action'), FILTER_SANITIZE_STRING));
         } else {
             // valeur par défaut
-            $action = $params[1] = 'index';
+            $action = 'index';
         }
 
-
-        // suppresion variable controller et action de $_GET
-        unset($params[0]); unset($params[1]);
 
         if(method_exists($controller, $action)) {
 
             //appel méthode du controller
-            call_user_func_array(array($controller, $action), $params);
+            $controller->$action();
 
         } else {
             //appel méthode index par défaut
-            call_user_func_array(array($controller, 'index'), $params);
+            $controller->index();
         }
 
 
@@ -80,6 +79,7 @@
         echo $e->getMessage();
 
         // direction vers controller par défaut
+        echo 'catch'; die;
         header('location: /home/index');
     }
 
