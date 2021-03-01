@@ -14,7 +14,7 @@
 
         <!------------------------------------------ nouveau patient ------------------------------------------------>
 
-        <form action="index.php" method="POST">
+        <form action="" method="POST">
 
             <fieldset class="mb-2">
 
@@ -59,7 +59,8 @@
 
             <!------------------------------------------ submit ------------------------------------------------>
             <div class="text-center my-4">
-                <input type="hidden" name="ctrl" value="5">
+                <input type="hidden" name="ctrl" value="appointment">
+                <input type="hidden" name="action" value="add_appointment">
                 <input class="btn bg1 bdc1 px-5" type="submit" value="ajouter">
             </div>  
 

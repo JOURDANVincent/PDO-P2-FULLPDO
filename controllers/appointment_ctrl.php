@@ -14,6 +14,10 @@ class Appointment extends Controller {
 
 
     function index(){
+        $this->aptmts_list();
+    }
+
+    function aptmts_list(){
 
         // envoi des données du tableau $array dans la vue
         $this->total = $this->Appointments->get_total();

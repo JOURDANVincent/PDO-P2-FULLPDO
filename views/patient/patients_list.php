@@ -40,7 +40,7 @@
                     $patient->birthdate = date('d/m/Y', strtotime($patient->birthdate)); ?>
 
                     <tr>
-                        <td onclick="location.href='index.php?ctrl=3&id=<?= $patient->id ?>'">
+                        <td onclick="location.href='/patient/patient_profile/id=<?= $patient->id ?>'">
                             <img style="max-width:20px;" src="/assets/icon/setPatientProfil.svg" alt="icon modifier">
                         </td>
                         <td class=""><?= $a ?></td>

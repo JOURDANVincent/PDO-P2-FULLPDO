@@ -12,15 +12,25 @@ class Patients extends Model {
     private $_last_insert_id;
 
 
-    public function __construct($lastname=null, $firstname=null, $birthdate=null, $phone=null, $mail=null, $id=null) {
+    public function __construct() {
 
-        $this->_lastname = $lastname;
-        $this->_firstname = $firstname;
-        $this->_birthdate = $birthdate;
-        $this->_phone = $phone;
-        $this->_mail = $mail;
-        $this->_id = $id;
-        $this->_pdo = $this->connect();
+        // $lastname=null, $firstname=null, $birthdate=null, $phone=null, $mail=null, $id=null
+        // $this->_lastname = $lastname;
+        // $this->_firstname = $firstname;
+        // $this->_birthdate = $birthdate;
+        // $this->_phone = $phone;
+        // $this->_mail = $mail;
+        // $this->_id = $id;
+        $this->connect();
+    }
+
+    public function hydrate($l, $f, $b, $p, $m){
+
+        $this->_lastname = $l;
+        $this->_firstname = $f;
+        $this->_birthdate = $b;
+        $this->_phone = $p;
+        $this->_mail = $m;
     }
     
     
@@ -149,17 +159,15 @@ class Patients extends Model {
     }
 
 
-    public static function get_patient_profil($id) {
+    public function get_patient_profile($id) {
 
         try{  //On essaie de se connecter
-
-            $pdo = Database::connect();
 
             // demande liste des patients
             $sql = "SELECT * FROM `patients` WHERE `id` = :id ;";
     
             // préparation de la requête
-            $sth = $pdo->prepare($sql);
+            $sth = $this->_pdo->prepare($sql);
 
             // association des marqueurs nominatif via méthode bindvalue
             $sth->bindValue(':id', $id, PDO::PARAM_INT);

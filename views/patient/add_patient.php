@@ -4,10 +4,10 @@
 
     <img id="wall" class="img-fluid text-center" src="/assets/img/crazyPatient.jpg" alt="Photo du chu d'amiens">
 
-    <?php if(!empty($alert_msg)) : ?>
-        <div class="col-12 alert alert-<?= $alert_type ?? 'danger' ?> alert-dismissible align-self-start">
+    <?php if(!empty($this->alert_msg)) : ?>
+        <div class="col-12 alert alert-<?= $this->alert_type ?? 'danger' ?> alert-dismissible align-self-start">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <?= $alert_msg ?>
+            <?= $this->alert_msg ?>
         </div>
     <?php endif ?>
 
@@ -28,8 +28,8 @@
                         name="lastname" 
                         placeholder="nom" 
                         value="<?= $this->lastname ?? '' ;?>"
-                        pattern ="^[a-zA-Z\-][^0-9]{2,}$" 
                         title="2 lettres mini / aucun chiffre ou caractères spéciaux"
+                        pattern ="^[a-zA-Z\-][^0-9]{2,20}$"
                     >
                     <input 
                         class="form-control col <?= (!empty($this->form_check['firstname'])) ? 'bgError' : '' ;?> mb-2 ml-3" 
@@ -37,7 +37,8 @@
                         name="firstname" 
                         placeholder="prénom" 
                         value="<?= $this->firstname ?? '' ;?>"
-                        required pattern ="^[a-zA-Z\-][^0-9]{2,}$" title="2 lettres mini / aucun chiffre ou caractères spéciaux"
+                        title="2 lettres mini / aucun chiffre ou caractères spéciaux"
+                        required pattern ="^[a-zA-Z\-][^0-9]{2,20}$" 
                     >
                 </div>
 

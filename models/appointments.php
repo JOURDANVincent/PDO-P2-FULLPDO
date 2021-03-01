@@ -2,18 +2,23 @@
 
 class Appointments extends Model {
 
-    private $_id;
     private $_dateHour;
     private $_idPatients;
+    private $_id;
     private $_last_insert_id;
     
 
-    public function __construct($dateHour=null, $idPatients=null, $id=null) {
+    public function __construct() {
+
+        $this->connect();
+    }
+
+
+    public function hydrate($dateHour, $idPatients) {
 
         $this->_dateHour = $dateHour;
         $this->_idPatients = $idPatients;
-        $this->_id = $id;
-        $this->_pdo = $this->connect();
+        // $this->_id = $id;
     }
     
     public function set_id($id) {
@@ -45,7 +50,6 @@ class Appointments extends Model {
             $result = $sth->execute();
 
             // on récupère le dernier id
-            //self::$last_insert = $this->_pdo->lastInsertId();
             $this->_last_insert_id = $this->_pdo->lastInsertId();
 
             // retourne le résultat
@@ -221,18 +225,16 @@ class Appointments extends Model {
         }
     }
 
-    public static function get_patient_appointment($idPatients) {
+    public function get_patient_appointments($idPatients) {
 
         try{  //On essaie de se connecter   
-            
-            $pdo = Database::connect();
 
             $sql = "SELECT `dateHour` 
                     FROM `appointments`
                     WHERE `idPatients` = :idPatients ;";
 
             // préparation de la requête
-            $sth = $pdo->prepare($sql);
+            $sth = $this->_pdo->prepare($sql);
 
             // association des marqueurs nominatif via méthode bindvalue
             $sth->bindValue(':idPatients', $idPatients, PDO::PARAM_INT);

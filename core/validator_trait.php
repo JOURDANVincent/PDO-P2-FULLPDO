@@ -14,6 +14,10 @@ trait Validator {
         $this->limit = !empty($_GET['limit']) ? intval(trim(filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT))) : '';
         $this->offset = !empty($_GET['offset']) ? intval(trim(filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT))) : '';
         $this->search = !empty($_GET['search']) ? trim(filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING)) : '';
+        $this->id = !empty($_GET['id']) ? intval(trim(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT))) : '';
+        $this->lastctrl = !empty($_GET['lastctrl']) ? intval(trim(filter_input(INPUT_GET, 'lastctrl', FILTER_SANITIZE_NUMBER_INT))) : '';
+    
+        return true;
     }
 
     function sanitize_post_input(){
@@ -23,26 +27,28 @@ trait Validator {
         $this->birthdate = !empty($_POST['birthdate']) ? trim(filter_input(INPUT_POST, 'birthdate', FILTER_SANITIZE_STRING)) : '';
         $this->phone = !empty($_POST['phone']) ? trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING)) : '';
         $this->mail = !empty($_POST['mail']) ? trim(filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL)) : '';
+
+        return true;
     }
 
     function check_form_data(){
 
         //nettoyage du post
-        $test = $this->sanitize_post_input();
+        $check = $this->sanitize_post_input();
 
-        if(!$test){
+        if($check){
             // controle si champs vides
-            $test = $this->is_field_empty();
+            $check = $this->is_field_empty();
         }
 
-        if(!$test){
+        if(!$check){
             // controle si champs valides
-            $test = $this->is_field_match();
+            $check = $this->is_field_match();
         }
 
         //var_dump($check); die;
 
-        return $test;
+        return $check;
     }
 
     function is_field_empty(){
