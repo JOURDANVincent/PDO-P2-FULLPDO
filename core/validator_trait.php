@@ -11,22 +11,22 @@ trait Validator {
 
     function sanitize_get_input(){
 
-        $this->limit = !empty($_GET['limit']) ? intval(trim(filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT))) : '';
-        $this->offset = !empty($_GET['offset']) ? intval(trim(filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT))) : '';
-        $this->search = !empty($_GET['search']) ? trim(filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING)) : '';
-        $this->id = !empty($_GET['id']) ? intval(trim(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT))) : '';
-        $this->lastctrl = !empty($_GET['lastctrl']) ? intval(trim(filter_input(INPUT_GET, 'lastctrl', FILTER_SANITIZE_NUMBER_INT))) : '';
+        $this->limit = intval(trim(filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT)));
+        $this->offset = intval(trim(filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT)));
+        $this->search = trim(filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING));
+        $this->id = intval(trim(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT)));
+        $this->lastctrl = intval(trim(filter_input(INPUT_GET, 'lastctrl', FILTER_SANITIZE_NUMBER_INT)));
     
         return true;
     }
 
     function sanitize_post_input(){
 
-        $this->firstname = !empty($_POST['firstname']) ? trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING)) : '';
-        $this->lastname = !empty($_POST['lastname']) ? trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING)) : '';
-        $this->birthdate = !empty($_POST['birthdate']) ? trim(filter_input(INPUT_POST, 'birthdate', FILTER_SANITIZE_STRING)) : '';
-        $this->phone = !empty($_POST['phone']) ? trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING)) : '';
-        $this->mail = !empty($_POST['mail']) ? trim(filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL)) : '';
+        $this->firstname = trim(filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING));
+        $this->lastname = trim(filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING));
+        $this->birthdate = trim(filter_input(INPUT_POST, 'birthdate', FILTER_SANITIZE_STRING));
+        $this->phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING));
+        $this->mail = trim(filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL));
 
         return true;
     }

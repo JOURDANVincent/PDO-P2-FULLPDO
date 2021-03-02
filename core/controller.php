@@ -15,9 +15,6 @@ class Controller {
 
     function render($filename) {
 
-        // extraction des données globales à afficher dans la vue
-        //extract($this->global_data);
-
         // recupère le header
         require_once ROOT. 'views/templates/header.php';
         // récupère la vue
@@ -50,12 +47,5 @@ class Controller {
         } 
 
     }
-
-    // function sanitize_get_input(){
-
-    //     $this->limit = !empty($_GET['limit']) ? intval(trim(filter_input(INPUT_GET, 'limit', FILTER_SANITIZE_NUMBER_INT))) : '';
-    //     $this->offset = !empty($_GET['offset']) ? intval(trim(filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT))) : '';
-    //     $this->search = !empty($_GET['search']) ? trim(filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING)) : '';
-    // }
 
 }

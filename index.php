@@ -13,61 +13,25 @@
     require_once ROOT.'core/validator_trait.php';
 
 
-    //var_dump($_POST);
-
     try {
 
-        if (!empty($_GET['ctrl']) || !empty($_POST['ctrl'])) {
+        // traitement controller
+        $controller = ucfirst(trim(filter_input($request_method,'ctrl', FILTER_SANITIZE_STRING)));
+        $controller = !empty($controller) ? $controller : 'home';
 
-            // traitement controller
-            $controller = ucfirst(trim(filter_input($request_method,'ctrl', FILTER_SANITIZE_STRING)));
+        // chargement du fichier requis
+        $file = ROOT.'controllers/'.strtolower($controller).'_ctrl.php';
+        is_file($file) ? require $file : require ROOT.'controllers/home_ctrl.php';
 
-        } else {
-            // attribution nom de controller par défaut
-            $controller = 'home';
-        }
+        // on instancie le controller
+        $controller = class_exists($controller) ? new $controller() : new Home();
 
-        echo $controller;
+        // traitement action
+        $action = strtolower(trim(filter_input($request_method, 'action'), FILTER_SANITIZE_STRING));
+        $action = !empty($action) ? $action : 'index';
 
-        if(is_file(ROOT.'controllers/'.strtolower($controller).'_ctrl.php')) { 
-
-            // appel du controller
-            require ROOT.'controllers/'.strtolower($controller).'_ctrl.php';
-
-        } else {
-            // appel controlleur par défaut
-            require ROOT.'controllers/home_ctrl.php';
-        }
-
-        if(class_exists($controller)) {
-
-            // on instancie le controller
-            $controller = new $controller();
-
-        } else {
-            // on instancie le controller Home par défaut
-            $controller = new Home();
-        }
-
-        if (!empty($_GET['action']) || !empty($_POST['action'])) {
-
-            // traitement de la méthode
-            $action = strtolower(trim(filter_input($request_method, 'action'), FILTER_SANITIZE_STRING));
-        } else {
-            // valeur par défaut
-            $action = 'index';
-        }
-
-
-        if(method_exists($controller, $action)) {
-
-            //appel méthode du controller
-            $controller->$action();
-
-        } else {
-            //appel méthode index par défaut
-            $controller->index();
-        }
+        // appel méthode du controller
+        method_exists($controller, $action) ? $controller->$action() : $controller->index();
 
 
     }  catch(PDOException $e){  // levé des exceptions pdo
